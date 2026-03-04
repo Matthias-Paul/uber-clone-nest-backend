@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Uber Clone</h1>
+        <p>Verify Your Email Address</p>
+      </div>
+
+      <div class="content">
+        <p class="greeting">Hello <strong><%= name %></strong>,</p>
+
+        <p class="message">
+          Thank you for registering with Uber Clone! We're excited to have you
+          on board. To complete your registration and start using our services,
+          please verify your email address.
+        </p>
+
+        <div class="otp-container">
+          <p class="otp-label">Your Verification Code</p>
+          <div class="otp-code"><%= code %></div>
+        </div>
+
+        <div class="expiry-notice">
+          <p><strong>This code will expire in 10 minutes.</strong></p>
+        </div>
+
+        <p class="message">
+          Enter this code in the verification page to activate your account and
+          start booking rides or driving with us.
+        </p>
+
+        <div class="security-tip">
+          <p>
+            <strong>Security Tip:</strong> Never disclose this code with anyone.
+            Our team will never ask you for this code via phone or email.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>If you didn't create an account with Uber Clone, please ignore this email.</p>
+        <p>
+          Need help? Contact us at
+          <a href="mailto:support@uberclone.com">support@uberclone.com</a>
+        </p>
+        <p style="margin-top: 20px; font-size: 12px">
+          &copy; <%= year %> Uber Clone. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
