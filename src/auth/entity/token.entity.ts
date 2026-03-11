@@ -1,4 +1,4 @@
-import { TokenType } from 'src/common/enums';
+import { TokenType } from '../../common/enums';
 import {
   Column,
   CreateDateColumn,

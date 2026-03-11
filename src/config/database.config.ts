@@ -3,6 +3,7 @@ import { registerAs } from '@nestjs/config';
 export default registerAs('database', () => ({
   // Safe defaults for local development when env flags are not configured.
   // In production, explicitly set DB_SYNC=false.
+  url: process.env.DATABASE_URL,
   host: process.env.DB_HOST || 'localhost',
   port: process.env.DB_PORT || 5432,
   name: process.env.DB_NAME,

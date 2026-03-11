@@ -8,7 +8,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { UserRole } from 'src/common/enums';
+import { UserRole } from '../../common/enums';
 
 export class RegisterUserDto {
   @IsEmail()

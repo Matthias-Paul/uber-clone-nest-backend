@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserRole } from 'src/common/enums';
+import { UserRole } from '../../common/enums';
 import { TokenEntity } from './token.entity';
 
 @Entity()
