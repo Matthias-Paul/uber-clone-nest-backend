@@ -4,6 +4,7 @@ import { EmailService } from './email.service';
 
 export enum EmailEventType {
   ACCOUNT_VERIFICATION = 'account.verification',
+  ACCOUNT_VERIFIED = 'account.verified',
 }
 
 type AccountVerificationJob = {
@@ -15,7 +16,15 @@ type AccountVerificationJob = {
   };
 };
 
-export type EmailProcessorJob = AccountVerificationJob;
+type AccountVerifiedJob = {
+  type: EmailEventType.ACCOUNT_VERIFIED;
+  data: {
+    email: string;
+    name: string;
+  };
+};
+
+export type EmailProcessorJob = AccountVerificationJob | AccountVerifiedJob;
 
 @Injectable()
 export class EmailProcessor {
@@ -47,6 +56,20 @@ export class EmailProcessor {
           context: {
             name,
             code,
+            year: new Date().getFullYear(),
+          },
+        });
+        return;
+      }
+      case EmailEventType.ACCOUNT_VERIFIED: {
+        const { email, name } = job.data;
+        await this.emailService.sendEmail({
+          to: email,
+          from: this.infoEmailFrom,
+          subject: 'Welcome to Uber Clone',
+          template: './account.verified',
+          context: {
+            name,
             year: new Date().getFullYear(),
           },
         });
