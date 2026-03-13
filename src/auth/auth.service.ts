@@ -11,7 +11,7 @@ import { Repository } from 'typeorm';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { HashingProvider } from './provider/hashing.provider';
 import { TokenEntity } from './entity/token.entity';
-import { TokenType } from '../common/enums';
+import { TokenType, UserRole } from '../common/enums';
 import { randomInt } from 'crypto';
 import { EmailEventType } from '../email/email.processor';
 import { EmailProcessor } from '../email/email.processor';
@@ -21,6 +21,7 @@ import { JwtService } from '@nestjs/jwt';
 import authConfig from './config/auth.config';
 import type { ConfigType } from '@nestjs/config';
 import { LoginDto } from './dtos/login.dto';
+import { DriverService } from '../driver/driver.service';
 
 @Injectable()
 export class AuthService {
@@ -39,6 +40,7 @@ export class AuthService {
     private readonly authConfiguration: ConfigType<typeof authConfig>,
 
     private readonly jwtService: JwtService,
+    private readonly driverService: DriverService,
   ) {}
 
   public async registerUser(userDto: RegisterUserDto) {
@@ -152,6 +154,10 @@ export class AuthService {
 
       user.verify_user = true;
       const verifiedUser = await this.userRepository.save(user);
+
+      if (verifiedUser.role === UserRole.DRIVER) {
+        await this.driverService.createDriverForUser(verifiedUser);
+      }
 
       await this.tokenRepository.delete({ id: tokenDoc.id });
 

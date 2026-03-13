@@ -3,12 +3,14 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { UserRole } from '../../common/enums';
 import { TokenEntity } from './token.entity';
+import { DriverEntity } from '../../driver/entity/driver.entity';
 
 @Entity()
 export class User {
@@ -54,6 +56,9 @@ export class User {
 
   @OneToMany(() => TokenEntity, (token) => token.user)
   tokens: TokenEntity[];
+
+  @OneToOne(() => DriverEntity, (driver) => driver.user)
+  driver?: DriverEntity;
 
   @CreateDateColumn()
   createdAt: Date;

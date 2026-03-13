@@ -10,6 +10,7 @@ import { EmailModule } from '../email/email.module';
 import { ConfigModule } from '@nestjs/config';
 import authConfig from './config/auth.config';
 import { JwtModule } from '@nestjs/jwt';
+import { DriverModule } from '../driver/driver.module';
 
 @Module({
   controllers: [AuthController],
@@ -25,6 +26,7 @@ import { JwtModule } from '@nestjs/jwt';
     EmailModule,
     ConfigModule.forFeature(authConfig),
     JwtModule.registerAsync(authConfig.asProvider()),
+    DriverModule,
   ],
   exports: [AuthService, HashingProvider],
 })

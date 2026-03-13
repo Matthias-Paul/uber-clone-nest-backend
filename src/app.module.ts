@@ -4,7 +4,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import authConfig from './auth/config/auth.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
+import { DriverModule } from './driver/driver.module';
+import { RideModule } from './ride/ride.module';
 import databaseConfig from './config/database.config';
+import { AuthorizeGuard } from './auth/guards/authorized.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -47,8 +51,15 @@ import databaseConfig from './config/database.config';
         };
       },
     }),
+    DriverModule,
+    RideModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthorizeGuard,
+    },
+  ],
 })
 export class AppModule {}
